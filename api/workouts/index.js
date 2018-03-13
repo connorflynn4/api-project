@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
 
 //post a workout
 router.post('/', upload.single('trainerImage'), (req, res) => {      //single means that only one file will be passed.
-console.log(req.file);
+console.log(req.file);  //this will make a log appear in the console, showing all sorts of info about the file stored 
   Workout.create(req.body, function(err, workout) {
     if (err) return handleError(res, err);
     return res.json(201, workout);
