@@ -1,7 +1,9 @@
 import express from 'express';
 import Workout  from './workoutModel';
+import multer from 'multer';
 
-const router = express.Router(); // eslint-disable-line
+const router = express.Router();
+const upload = multer ({dest: 'uploads/'});   //where multer will store incoming files
 
 router.get('/', (req, res) => {
   Workout.find((err, workouts) => {
@@ -10,7 +12,9 @@ router.get('/', (req, res) => {
   });
 });
 
-router.post('/', (req, res) => {
+//post a workout
+router.post('/', upload.single('trainerImage'), (req, res) => {      //single means that only one file will be passed.
+console.log(req.file);
   Workout.create(req.body, function(err, workout) {
     if (err) return handleError(res, err);
     return res.json(201, workout);
@@ -31,7 +35,7 @@ router.put('/:id', (req, res) => {
   });
 });
 
-// Delete a contact
+// Delete a workout
 router.delete('/:id', (req, res) => {
   Workout.findById(req.params.id, (err, workout) => {
     if (err) return handleError(res, err);
