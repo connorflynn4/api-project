@@ -4,19 +4,21 @@ import multer from 'multer';
 
 const router = express.Router();
 
-const upload = multer ({dest: 'uploads/'});   //where multer will store incoming files
+const upload = multer ({dest: './uploads'});   //where multer will store incoming files
 
-/**const upload = multer ({    //alternitive storage using limits the stoargae const
+/**const upload = multer ({    //alternitive storage using limits,
 storage: storage,
 limits: {
 fileSize: 1024 * 1024 * 5
-}
-});**/
+},
+fileFilter: fileFilter
 
+});
+**/
 
 const storage = multer.diskStorage({   //adjust how the files get stored
 destination: function(req, file, cb){    //callback will be exe whenever new file is received
-cb(null, './uploads/');
+cb(null, './uploads');
   },
   filename: function(req, file, cb){
   cb(null, new Date().toISOString() + file.originalname);   //will be stored with orignal name and todays date
@@ -48,6 +50,22 @@ console.log(req.file);  //this will make a log appear in the console, showing al
     return res.json(201, workout);
   });
 });
+
+
+// upvote a workout
+router.post('/:id/upvotes', (req, res) => {
+  const id = req.params.id;
+  Workout.findById(id, (err, post) => {
+        if (err) return handleError(res, err);
+  post.upvotes++;
+  post.save((err) =>
+  {
+          if (err) return handleError(res, err);
+           return res.status(201).send({post});
+  });
+  } );
+});
+
 
 // Update a workout
 router.put('/:id', (req, res) => {

@@ -7,7 +7,10 @@ export const workouts = [
   'exercise_3': 'Lat Pull Downs - 10x3',
   'exercise_4': 'One Arm Row - 10x3',
   'difficulty': 'Beginner',
-  'time_in_minutes': '60'
+  'time_in_minutes': '60',
+  'username': 'flynnboy',
+  'comments': [],
+  'upvotes': 10
 },
 
 {
@@ -18,7 +21,10 @@ export const workouts = [
   'exercise_3': 'E-Z Bar Curl - 10x3',
   'exercise_4': 'Assisted Pull Ups - 10x3',
   'difficulty': 'Beginner',
-  'time_in_minutes': '60'
+  'time_in_minutes': '60',
+  'username': 'jerrydel',
+  'comments': [],
+  'upvotes': 10
 },
 
 {
@@ -29,7 +35,10 @@ export const workouts = [
   'exercise_3': '3/4 Sit Ups - 12x3',
   'exercise_4': 'Full Sit Ups - 10x3',
   'difficulty': 'Intermediate',
-  'time_in_minutes': '90'
+  'time_in_minutes': '90',
+  'username': 'ronniew',
+  'comments': [],
+  'upvotes': 10
 },
 
 {
@@ -40,6 +49,9 @@ export const workouts = [
   'exercise_3': 'Dips - 10x5',
   'exercise_4': 'Chest Flys - 15x4',
   'difficulty': 'Advanced',
-  'time_in_minutes': '150'
+  'time_in_minutes': '150',
+  'username': 'harryp',
+  'comments': [],
+  'upvotes': 5
 }
 ];
