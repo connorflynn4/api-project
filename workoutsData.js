@@ -69,7 +69,7 @@ export const loadWorkouts = () => {
     if (err) {
       console.log(`Failed to Load Workout Data: ${err}`);  //if unsuccessful
     } else {
-      console.info(`${workouts.length} workouts were added to the forum.`);  //if successful
+      console.info(`${workouts.length} Workouts were added to the forum.`);  //if successful
     }
   });
 });
