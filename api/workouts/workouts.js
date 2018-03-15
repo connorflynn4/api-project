@@ -1,5 +1,6 @@
 export const workouts = [
 {
+
   'workout_name': 'Jims Back Workout',
   'trainer': 'Jimmy Cricket',
   'exercise_1': 'Wide Grip Pull Ups - 10x3',
@@ -14,6 +15,7 @@ export const workouts = [
 },
 
 {
+
  'workout_name': 'Eddies Arm Workout',
   'trainer': 'Eddie Murphy',
   'exercise_1': 'Close Grip Pull Ups - 10x3',
@@ -28,6 +30,7 @@ export const workouts = [
 },
 
 {
+
 'workout_name': 'Adams Core Workout',
   'trainer': 'Adam Smith',
   'exercise_1': 'Leg Raises - 15x3',
@@ -42,6 +45,7 @@ export const workouts = [
 },
 
 {
+
 'workout_name': 'Charlies Chest Workout',
   'trainer': 'Adam Smith',
   'exercise_1': 'Bench Press - 10x4',

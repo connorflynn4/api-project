@@ -1,7 +1,7 @@
 import express from 'express';
 import Workout  from './workoutModel';
 import multer from 'multer';
-
+import _ from 'lodash';
 const router = express.Router();
 
 const upload = multer ({dest: './uploads'});   //where multer will store incoming files
@@ -67,19 +67,22 @@ router.post('/:id/upvotes', (req, res) => {
 });
 
 
+
 // Update a workout
 router.put('/:id', (req, res) => {
-  if (req.body._id) delete req.body._id;
-  Workout.findById(req.params.id, (err, workout) => {
+if (req.body._id) delete req.body._id;
+ Workout.findById(req.params.id, (err, workout) => {
+   if (err) return handleError(res, err);
+  if (!workout) return res.send(404);
+  const updated = _.merge(workout, req.body);
+  updated.save((err) => {
     if (err) return handleError(res, err);
-    if (!workout) return res.send(404);
-    const updated = _.merge(workout, req.body);
-    updated.save((err) => {
-      if (err) return handleError(res, err);
-      return res.json(200, workout);
-    });
+    return res.json(200, workout);
+  });
   });
 });
+
+
 
 // Delete a workout
 router.delete('/:id', (req, res) => {
@@ -89,6 +92,7 @@ router.delete('/:id', (req, res) => {
     workout.remove(function(err) {
       if (err) return handleError(res, err);
       return res.send(204);
+     console.log('workout has been deleted');
     });
   });
 });

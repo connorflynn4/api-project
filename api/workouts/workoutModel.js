@@ -9,6 +9,7 @@ const CommentSchema = new Schema({
 
 
 const WorkoutSchema = new Schema({
+  
   workout_name: String,
   trainer: String,
   exercise1: String,
