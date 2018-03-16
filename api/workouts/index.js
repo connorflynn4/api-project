@@ -119,9 +119,10 @@ router.post('/:id/comments', (req, res) => {
    const comment = req.body;
    Workout.findById(id, (err, post)=>{
      if (err) return handleError(res, err);
-        post.comments.push(comment);
-        post.save((err) => {
+        workout.comments.push(comment);
+        workout.save((err) => {
           if (err) return handleError(res, err);
+          console.info('you have added a comment to this workout')
            return res.status(201).send({workout});
         });
   });

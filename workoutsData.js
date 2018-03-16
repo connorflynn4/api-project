@@ -62,6 +62,9 @@ const workouts = [
 }
 ];
 
+
+
+
 export const loadWorkouts = () => {
 
   workoutModel.find({}).remove(() => {
