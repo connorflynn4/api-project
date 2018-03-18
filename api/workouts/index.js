@@ -3,6 +3,7 @@ import Workout  from './workoutModel';
 import multer from 'multer';
 import _ from 'lodash';
 const router = express.Router();
+var jwt = require('jsonwebtoken');
 
 const upload = multer ({dest: './uploads'});   //where multer will store incoming files
 
@@ -36,7 +37,7 @@ const fileFilter = (req, file, cb) => {
 };
 
 //get all workouts
-router.get('/', (req, res) => {
+router.get('/', verifyToken, (req, res) => {
   Workout.find((err, workouts) => {
     if (err) return handleError(res, err);
     console.info('Here are all the workouts that are currently listed on the forum')
@@ -44,11 +45,29 @@ router.get('/', (req, res) => {
   });
 });
 
+//get webtoken
+router.post('/login', (req, res) => {
+//admin user
+const user = {
+  id: 1,
+  username: 'connor',
+  email: 'connorflynn4@gmail.com'
+}
+
+  jwt.sign({user: user}, 'secretkey', (err, token) => {   //callback to send token
+    res.json({
+      token: token
+    })
+  });
+});
+
+
 //get an individual workout
 router.get('/:id', (req, res) => {
     const id = req.params.id;
     Workout.findById(id, (err, workout) => {
         if (err) return handleError(res, err);
+
         console.info('Here is the specific workout you asked for' );
         return res.status(200).json(workout);
   } );
@@ -60,7 +79,7 @@ router.post('/', upload.single('trainerImage'), (req, res) => {      //single me
 console.log(req.file);  //this will make a log appear in the console, showing all sorts of info about the file stored
   Workout.create(req.body, function(err, workout) {
     if (err) return handleError(res, err);
-    console.info('Thank you for posting this workout, your contribution to this forum is greatly appreciated')
+    console.info('Thank you for posting this workout');
     return res.json(201, workout);
   });
 });
@@ -127,6 +146,13 @@ router.post('/:id/comments', (req, res) => {
         });
   });
 });
+
+//Verify token function
+function verifyToken(req, res, next){
+  const bearerHeader = req.header['authorization'] //get whateevr is in the auth bearerHeader
+  if (typeof bearerHeader !== 'undefined');
+  res.sendStatus(403); //forbidden message
+}
 
 function handleError(res, err) {
   return res.send(500, err);

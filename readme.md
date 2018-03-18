@@ -25,3 +25,9 @@ NPM DEPENDENCIES:
 "lodash": "^4.17.5",
 "mongoose": "^5.0.8",
 "multer": "^1.3.0"  
+
+References:
+https://github.com/fxwalsh/node-samples-2018/tree/master/labs
+https://github.com/expressjs/multer
+https://jwt.io/
+https://github.com/auth0/node-jsonwebtoken
