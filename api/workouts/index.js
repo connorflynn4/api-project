@@ -37,7 +37,7 @@ const fileFilter = (req, file, cb) => {
 };
 
 //get all workouts
-router.get('/', verifyToken, (req, res) => {
+router.get('/', (req, res) => {
   Workout.find((err, workouts) => {
     if (err) return handleError(res, err);
     console.info('Here are all the workouts that are currently listed on the forum')
@@ -117,8 +117,6 @@ if (req.body._id) delete req.body._id;
   });
 });
 
-
-
 // Delete a workout
 router.delete('/:id', (req, res) => {
   Workout.findById(req.params.id, (err, workout) => {
@@ -131,6 +129,29 @@ router.delete('/:id', (req, res) => {
     });
   });
 });
+
+
+
+// Delete a workout with web tokens
+/**
+router.delete('/:id', verifyToken, (req, res) => {
+
+jwt.verify(req.token, 'secretkey', (err, authData) => {
+if (err) res.sendStatus(403);
+return res.json ({message: 'user has been authoized'})
+}
+
+    Workout.findById(req.params.id, (err, workout) => {
+    if (err) return handleError(res, err);
+    if (!workout) return res.send(404);
+    workout.remove(function(err) {
+      if (err) return handleError(res, err);
+      console.info('workout has been deleted');
+      return res.send(204);
+    });
+   });
+ });
+**/
 
 //post a comment on a workout
 router.post('/:id/comments', (req, res) => {
@@ -147,12 +168,20 @@ router.post('/:id/comments', (req, res) => {
   });
 });
 
+//format of token is Authorization: Bearer <access_token>
+//.split will turn this into an array, with <access_token> being 0 index of the array
 //Verify token function
 function verifyToken(req, res, next){
   const bearerHeader = req.header['authorization'] //get whateevr is in the auth bearerHeader
-  if (typeof bearerHeader !== 'undefined');
+  if (typeof bearerHeader !== 'undefined') {
+    const bearer = bearerHeader.split(' ');  //turns a string into an array, will be split by a space
+    const bearerToken = bearer[1];
+    req.token = bearerToken;
+    next();
+  } else {
   res.sendStatus(403); //forbidden message
-}
+}}
+
 
 function handleError(res, err) {
   return res.send(500, err);
