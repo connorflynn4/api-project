@@ -118,33 +118,14 @@ if (req.body._id) delete req.body._id;
 });
 
 
-// Delete a workout
-router.delete('/:id', (req, res) => {
-  Workout.findById(req.params.id, (err, workout) => {
-    if (err) return handleError(res, err);
-    if (!workout) return res.send(404);
-    workout.remove(function(err) {
-      if (err) return handleError(res, err);
-      console.info('workout has been deleted');
-      return res.send(204);
-    });
-  });
-});
-
-/**
 //Authorized delete workout using webtoken
  router.delete('/:id', verifyToken, (req, res) => {
  jwt.verify(req.token, 'secretkey', (err, authData) => {
      if(err) {
        res.sendStatus(403);
      } else {
-       res.json({
-          message: 'User has been authorized',
-          authData
-       });
        Workout.findById(req.params.id, (err, workout) => {
-
-           if (err) return handleError(res, err);
+          if (err) return handleError(res, err);
            if (!workout) return res.send(404);
            workout.remove(function(err) {
              if (err) return handleError(res, err);
@@ -156,7 +137,7 @@ router.delete('/:id', (req, res) => {
    });
  });
 
-**/
+
 
 //post a comment on a workout
 router.post('/:id/comments', (req, res) => {
