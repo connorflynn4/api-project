@@ -3,6 +3,7 @@ import Workout  from './workoutModel';
 import multer from 'multer';
 import _ from 'lodash';
 const router = express.Router();
+var workoutEvent = require("../../events.js")
 var jwt = require('jsonwebtoken');
 
 const upload = multer ({dest: './uploads'});   //where multer will store incoming files
@@ -41,7 +42,8 @@ router.get('/', (req, res) => {
   Workout.find((err, workouts) => {
     if (err) return handleError(res, err);
     console.info('Here are all the workouts that are currently listed on the forum')
-    return res.json(200, workouts);
+    //return res.json(200, workouts);
+    return res.status(200).json(workouts);
   });
 });
 
@@ -79,8 +81,9 @@ router.post('/', upload.single('trainerImage'), (req, res) => {      //single me
 console.log(req.file);  //this will make a log appear in the console, showing all sorts of info about the file stored
   Workout.create(req.body, function(err, workout) {
     if (err) return handleError(res, err);
+    workoutEvent.publish('create_workout_event', workout);
     console.info('Thank you for posting this workout');
-    return res.json(201, workout);
+    return res.status(201).send({workout});
   });
 });
 
@@ -88,7 +91,7 @@ console.log(req.file);  //this will make a log appear in the console, showing al
 // upvote a workout
 router.post('/:id/upvotes', (req, res) => {
   const id = req.params.id;
-  Workout.findById(id, (err, post) => {
+  Workout.findById(id, (err, workout) => {
         if (err) return handleError(res, err);
   workout.upvotes++;
   workout.save((err) =>
@@ -112,7 +115,8 @@ if (req.body._id) delete req.body._id;
   updated.save((err) => {
     if (err) return handleError(res, err);
     console.info('You have updated your workout');
-    return res.json(200, workout);
+    //return res.json(200, workout);
+    return res.status(200).json(workout);
   });
   });
 });
@@ -143,7 +147,7 @@ if (req.body._id) delete req.body._id;
 router.post('/:id/comments', (req, res) => {
    const id = req.params.id;
    const comment = req.body;
-   Workout.findById(id, (err, post)=>{
+   Workout.findById(id, (err, workout)=>{
      if (err) return handleError(res, err);
         workout.comments.push(comment);
         workout.save((err) => {
@@ -170,8 +174,15 @@ function verifyToken(req, res, next) {
   }
 };
 
+/**
+ * Handle general errors.
+ * @param {object} res The response object
+ * @param {object} err The error object.
+ * @return {object} The response object
+ */
 function handleError(res, err) {
   return res.send(500, err);
 };
+
 
 export default router;
