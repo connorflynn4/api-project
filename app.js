@@ -16,6 +16,18 @@ export const app = express();
 
 const port = process.env.PORT;
 
+//configure body-parser
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
+app.use(express.static('public'));
+app.use('/uploads', express.static('uploads'));
+app.use('/api/users', usersRouter);
+
+
+app.listen(port, () => {
+  console.info(`Server running at ${port}`);
+});
+
 // Connect to database
 if (process.env.NODE_ENV == 'test') {
   // use mockgoose for testing
@@ -33,26 +45,8 @@ mongoose.connection.on('error', (err) => {
     process.exit(-1);
 });
 
-
-
-// Populate DB with sample workout data
-if (process.env.seedDb) {
-  loadWorkouts();
-  loadUsers();
-}
-
-
-
-
-
-//configure body-parser
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
-
 app.use('/api/workouts', passport.authenticate('jwt', {session: false}), workoutsRouter);
-app.use(express.static('public'));
-app.use('/uploads', express.static('uploads'));
-app.use('/api/users', usersRouter);
+
 
 // add middleware to handle any errors.
 app.use((err, req, res, next) => {
@@ -60,6 +54,10 @@ app.use((err, req, res, next) => {
   res.status(500).send(`Something broke! ${err.message}`);
 });
 
-app.listen(port, () => {
-  console.info(`Server running at ${port}`);
-});
+
+
+// Populate DB with sample workout data
+if (process.env.seedDb) {
+  loadWorkouts();
+  loadUsers();
+}

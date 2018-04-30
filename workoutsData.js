@@ -8,7 +8,7 @@ const workouts = [
   exercise1: 'Wide Grip Pull Ups - 10x3',
   exercise2: 'Deadlifts - 10x3',
   difficulty: 'Beginner',
-  timeInMins: '60',
+  timeInMins: 60,
   comments: []
 
 },
@@ -20,7 +20,7 @@ const workouts = [
   exercise1: 'Close Grip Pull Ups - 10x3',
   exercise2: 'Single Arm Curl - 10x3',
   difficulty: 'Beginner',
-  timeInMins: '60',
+  timeInMins: 60,
   comments: []
 
 },
@@ -32,7 +32,7 @@ const workouts = [
   exercise1: 'Leg Raises - 15x3',
   exercise2: 'Rope Pull Downs - 20x3',
   difficulty: 'Intermediate',
-  timeInMins: '90',
+  timeInMins: 90,
   comments: []
 },
 
@@ -43,7 +43,7 @@ const workouts = [
   exercise1: 'Bench Press - 10x4',
   exercise2: 'Wide Press Ups - 20x5',
   difficulty: 'Advanced',
-  timeInMins: '150',
+  timeInMins: 150,
   comments: []
 }
 ];

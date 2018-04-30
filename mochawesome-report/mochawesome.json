@@ -5,9 +5,9 @@
     "passes": 6,
     "pending": 0,
     "failures": 2,
-    "start": "2018-04-30T14:44:25.087Z",
-    "end": "2018-04-30T14:44:34.152Z",
-    "duration": 9065,
+    "start": "2018-04-30T15:54:11.572Z",
+    "end": "2018-04-30T15:54:21.094Z",
+    "duration": 9522,
     "testsRegistered": 8,
     "passPercent": 75,
     "pendingPercent": 0,
@@ -19,7 +19,7 @@
     "pendingPercentClass": "danger"
   },
   "suites": {
-    "uuid": "f61e48fb-b27f-4196-b0a2-5fb638763dc9",
+    "uuid": "00c20892-3e07-4646-99ae-0671f51f2852",
     "title": "",
     "fullFile": "",
     "file": "",
@@ -28,7 +28,7 @@
     "tests": [],
     "suites": [
       {
-        "uuid": "1d7145ce-aad4-487f-84b1-7e49d321e495",
+        "uuid": "8893dca1-18f3-4106-86dc-615a0f2a429b",
         "title": "Users API unit test",
         "fullFile": "C:\\Users\\conno\\Desktop\\api-project\\test\\testUsers.js",
         "file": "\\test\\testUsers.js",
@@ -39,7 +39,7 @@
             "title": "should return collection of JSON documents",
             "fullTitle": "Users API unit test should return collection of JSON documents",
             "timedOut": false,
-            "duration": 7458,
+            "duration": 7913,
             "state": "passed",
             "speed": "slow",
             "pass": true,
@@ -48,7 +48,7 @@
             "code": "(0, _supertest2.default)(_app.app).get('/api/users').expect('Content-type', /json/).expect(200) // This is the HTTP response\n.end(function (err, res) {\n  res.status.should.equal(200);\n  done();\n});",
             "err": {},
             "isRoot": false,
-            "uuid": "49ead0be-5f1f-437a-b4e8-efc85c5fd8ab",
+            "uuid": "fb766437-5fa3-4fd5-af35-d09ba91bfd3b",
             "isHook": false,
             "skipped": false
           },
@@ -56,7 +56,7 @@
             "title": "should register a user",
             "fullTitle": "Users API unit test should register a user",
             "timedOut": false,
-            "duration": 1000,
+            "duration": 988,
             "state": "passed",
             "speed": "slow",
             "pass": true,
@@ -65,7 +65,7 @@
             "code": "(0, _supertest2.default)(_app.app).post('/api/users').query({ action: 'register' }).send({ username: 'jimmy', password: 'football' }).expect('Content-type', /json/).expect(201).end(function (err, res) {\n  res.status.should.equal(201);\n  res.body.success.should.equal(true);\n  done();\n});",
             "err": {},
             "isRoot": false,
-            "uuid": "a1c5fb87-bb1b-46f7-9393-8282375b2b04",
+            "uuid": "9b283dbc-f9f4-4065-a4f5-d287bcd769dd",
             "isHook": false,
             "skipped": false
           },
@@ -73,7 +73,7 @@
             "title": "should authenticate a user",
             "fullTitle": "Users API unit test should authenticate a user",
             "timedOut": false,
-            "duration": 450,
+            "duration": 439,
             "state": "passed",
             "speed": "slow",
             "pass": true,
@@ -82,27 +82,27 @@
             "code": "(0, _supertest2.default)(_app.app).post('/api/users').send({ username: 'connor', password: 'cat' }).expect('Content-type', /json/).expect(201).end(function (err, res) {\n  res.status.should.equal(200);\n  res.body.token.substring(0, 3).should.equal('JWT');\n  done();\n});",
             "err": {},
             "isRoot": false,
-            "uuid": "264bae0d-497d-4374-a1f8-449e2ac69b38",
+            "uuid": "c044614e-b149-46b2-9a0b-5df0b1939ee2",
             "isHook": false,
             "skipped": false
           }
         ],
         "suites": [],
         "passes": [
-          "49ead0be-5f1f-437a-b4e8-efc85c5fd8ab",
-          "a1c5fb87-bb1b-46f7-9393-8282375b2b04",
-          "264bae0d-497d-4374-a1f8-449e2ac69b38"
+          "fb766437-5fa3-4fd5-af35-d09ba91bfd3b",
+          "9b283dbc-f9f4-4065-a4f5-d287bcd769dd",
+          "c044614e-b149-46b2-9a0b-5df0b1939ee2"
         ],
         "failures": [],
         "pending": [],
         "skipped": [],
-        "duration": 8908,
+        "duration": 9340,
         "root": false,
         "rootEmpty": false,
         "_timeout": 120000
       },
       {
-        "uuid": "a69f2cd5-67b0-4121-b525-9699718baf01",
+        "uuid": "d661766d-85e5-4b77-bd9d-b6341e7ee9c2",
         "title": "Workouts API unit test",
         "fullFile": "C:\\Users\\conno\\Desktop\\api-project\\test\\testWorkout.js",
         "file": "\\test\\testWorkout.js",
@@ -113,7 +113,7 @@
             "title": "should return collection of JSON documents",
             "fullTitle": "Workouts API unit test should return collection of JSON documents",
             "timedOut": false,
-            "duration": 22,
+            "duration": 28,
             "state": "passed",
             "speed": "fast",
             "pass": true,
@@ -122,7 +122,7 @@
             "code": "(0, _supertest2.default)(_app.app).get('/api/workouts').set('Authorization', 'BEARER eyJhbGciOiJIUzI1NiJ9.Y29ubm9y.0ZtAOqXptUFcMQOohJokS-x1GGw0pJRotjnOjKZFlug').expect('Content-type', /json/).expect(200).end(function (err, res) {\n  res.status.should.equal(200);\n  done();\n});",
             "err": {},
             "isRoot": false,
-            "uuid": "8517a7d0-69ca-4fa7-be0f-a4698f456b18",
+            "uuid": "ac79eb54-a2e7-4483-8d69-6f2f36a28ad7",
             "isHook": false,
             "skipped": false
           },
@@ -130,16 +130,16 @@
             "title": "should add a workout",
             "fullTitle": "Workouts API unit test should add a workout",
             "timedOut": false,
-            "duration": 20,
+            "duration": 23,
             "state": "passed",
             "speed": "fast",
             "pass": true,
             "fail": false,
             "pending": false,
-            "code": "this.timeout(1200000);\n(0, _supertest2.default)(_app.app).post('/api/workouts').set('Authorization', 'BEARER eyJhbGciOiJIUzI1NiJ9.Y29ubm9y.0ZtAOqXptUFcMQOohJokS-x1GGw0pJRotjnOjKZFlug').send({ workoutName: 'Jims Back Workout', trainer: 'Jimmy Cricket', exercise1: 'Wide Grip Pull Ups', exercise2: 'Deadlifts', difficulty: 'Beginner', timeInMins: '60' }).expect('Content-type', /json/).expect(201).end(function (err, res) {\n  res.status.should.equal(201);\n  res.body.should.have.property('_id');\n  res.body.workoutName.should.equal('Jims Back Workout');\n  done();\n});",
+            "code": "this.timeout(1200000);\n(0, _supertest2.default)(_app.app).post('/api/workouts').set('Authorization', 'BEARER eyJhbGciOiJIUzI1NiJ9.Y29ubm9y.0ZtAOqXptUFcMQOohJokS-x1GGw0pJRotjnOjKZFlug').send({ workoutName: 'Jims Back Workout', trainer: 'Jimmy Cricket', exercise1: 'Wide Grip Pull Ups', exercise2: 'Deadlifts', difficulty: 'Beginner', timeInMins: 60 }).expect('Content-type', /json/).expect(201).end(function (err, res) {\n  res.status.should.equal(201);\n  res.body.should.have.property('_id');\n  res.body.workoutName.should.equal('Jims Back Workout');\n  done();\n});",
             "err": {},
             "isRoot": false,
-            "uuid": "baeed6fb-e5aa-4467-a840-e2940a751d11",
+            "uuid": "eb26caa3-d89f-4c27-aa1f-526c188292c4",
             "isHook": false,
             "skipped": false
           },
@@ -155,11 +155,11 @@
             "code": "var superserver = (0, _supertest2.default)(_app.app);\nsuperserver.get('/api/workouts').set('Authorization', 'BEARER eyJhbGciOiJIUzI1NiJ9.Y29ubm9y.0ZtAOqXptUFcMQOohJokS-x1GGw0pJRotjnOjKZFlug').expect('Content-type', /json/).expect(200) // This is HTTP response\n.end(function (err, res) {\n  var id = res.body[0]._id;\n  superserver.delete('/api/workouts/' + id).expect('Content-type', /json/).expect(200) // This is HTTP response\n  .end(function (err, res) {\n    res.status.should.equal(204);\n    done();\n  });\n});",
             "err": {
               "message": "AssertionError: expected 401 to be 204",
-              "estack": "AssertionError: expected 401 to be 204\n    at Assertion.fail (node_modules\\should\\cjs\\should.js:275:17)\n    at Assertion.value (node_modules\\should\\cjs\\should.js:356:19)\n    at Test.<anonymous> (C:/Users/conno/Desktop/api-project/test/testWorkout.js:70:36)\n    at Test.assert (node_modules\\supertest\\lib\\test.js:179:6)\n    at Server.assert (node_modules\\supertest\\lib\\test.js:131:12)\n    at emitCloseNT (net.js:1655:8)\n    at _combinedTickCallback (internal/process/next_tick.js:135:11)\n    at process._tickCallback (internal/process/next_tick.js:180:9)",
+              "estack": "AssertionError: expected 401 to be 204\n    at Assertion.fail (node_modules\\should\\cjs\\should.js:275:17)\n    at Assertion.value (node_modules\\should\\cjs\\should.js:356:19)\n    at Test.<anonymous> (C:/Users/conno/Desktop/api-project/test/testWorkout.js:71:36)\n    at Test.assert (node_modules\\supertest\\lib\\test.js:179:6)\n    at Server.assert (node_modules\\supertest\\lib\\test.js:131:12)\n    at emitCloseNT (net.js:1655:8)\n    at _combinedTickCallback (internal/process/next_tick.js:135:11)\n    at process._tickCallback (internal/process/next_tick.js:180:9)",
               "diff": "- 401\n+ 204\n"
             },
             "isRoot": false,
-            "uuid": "ddd6c20b-e1cf-4da2-b72e-0e80a3dc948c",
+            "uuid": "54476108-4ff1-4e5e-b70e-beacec9fce0d",
             "isHook": false,
             "skipped": false
           },
@@ -175,17 +175,17 @@
             "code": "this.timeout(120000);\nvar superserver = (0, _supertest2.default)(_app.app);\nsuperserver.get('/api/workouts')\n//.set('Authorization', 'BEARER eyJhbGciOiJIUzI1NiJ9.U2Vhbg.kcSaZwPVIm7cKjHOzkuSmyVLxVOhQudbjWpoZR0MFi4')\n.expect('Content-type', /json/).expect(200).end(function (err, res) {\n  var id = res.body[1]._id;\n  superserver.put('/api/workouts/' + id).send({ difficulty: 'Intermediate' }).expect('Content-type', /json/).expect(200).end(function (err, res) {\n    res.status.should.equal(200);\n    res.body.difficulty.should.equal('Intermediate');\n    done();\n  });\n});",
             "err": {
               "message": "TypeError: Cannot read property '_id' of undefined",
-              "estack": "TypeError: Cannot read property '_id' of undefined\n    at Test.<anonymous> (C:/Users/conno/Desktop/api-project/test/testWorkout.js:90:32)\n    at Test.assert (node_modules\\supertest\\lib\\test.js:179:6)\n    at Server.assert (node_modules\\supertest\\lib\\test.js:131:12)\n    at emitCloseNT (net.js:1655:8)\n    at _combinedTickCallback (internal/process/next_tick.js:135:11)\n    at process._tickCallback (internal/process/next_tick.js:180:9)"
+              "estack": "TypeError: Cannot read property '_id' of undefined\n    at Test.<anonymous> (C:/Users/conno/Desktop/api-project/test/testWorkout.js:91:32)\n    at Test.assert (node_modules\\supertest\\lib\\test.js:179:6)\n    at Server.assert (node_modules\\supertest\\lib\\test.js:131:12)\n    at emitCloseNT (net.js:1655:8)\n    at _combinedTickCallback (internal/process/next_tick.js:135:11)\n    at process._tickCallback (internal/process/next_tick.js:180:9)"
             },
             "isRoot": false,
-            "uuid": "ed676b14-4f4c-49c3-833c-bd6fd5453c6a",
+            "uuid": "0e73169b-7ba0-4906-a8cd-4d4e653c41dc",
             "isHook": false,
             "skipped": false
           }
         ],
         "suites": [
           {
-            "uuid": "0012a627-f190-4ff7-9be0-3278490121ea",
+            "uuid": "28406395-d721-4f99-abdb-14bd1f117e47",
             "title": "Workouts API unit test",
             "fullFile": "C:\\Users\\conno\\Desktop\\api-project\\test\\testWorkout.js",
             "file": "\\test\\testWorkout.js",
@@ -196,7 +196,7 @@
                 "title": "should not return collection of JSON documents when there is no authorization",
                 "fullTitle": "Workouts API unit test Workouts API unit test should not return collection of JSON documents when there is no authorization",
                 "timedOut": false,
-                "duration": 5,
+                "duration": 4,
                 "state": "passed",
                 "speed": "fast",
                 "pass": true,
@@ -205,31 +205,31 @@
                 "code": "(0, _supertest2.default)(_app.app).get('/api/workouts')\n//.set('Authorization', 'BEARER eyJhbGciOiJIUzI1NiJ9.Y29ubm9y.0ZtAOqXptUFcMQOohJokS-x1GGw0pJRotjnOjKZFlug')\n.expect('Content-type', /json/).expect(401).end(function (err, res) {\n  res.status.should.equal(401);\n  done();\n});",
                 "err": {},
                 "isRoot": false,
-                "uuid": "7b195bf3-bea1-4e02-b4ab-90f77902f05d",
+                "uuid": "78b9f493-70a7-43ff-af26-5f82bc8ac76a",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "7b195bf3-bea1-4e02-b4ab-90f77902f05d"
+              "78b9f493-70a7-43ff-af26-5f82bc8ac76a"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 5,
+            "duration": 4,
             "root": false,
             "rootEmpty": false,
             "_timeout": 120000
           }
         ],
         "passes": [
-          "8517a7d0-69ca-4fa7-be0f-a4698f456b18",
-          "baeed6fb-e5aa-4467-a840-e2940a751d11"
+          "ac79eb54-a2e7-4483-8d69-6f2f36a28ad7",
+          "eb26caa3-d89f-4c27-aa1f-526c188292c4"
         ],
         "failures": [
-          "ddd6c20b-e1cf-4da2-b72e-0e80a3dc948c",
-          "ed676b14-4f4c-49c3-833c-bd6fd5453c6a"
+          "54476108-4ff1-4e5e-b70e-beacec9fce0d",
+          "0e73169b-7ba0-4906-a8cd-4d4e653c41dc"
         ],
         "pending": [],
         "skipped": [],

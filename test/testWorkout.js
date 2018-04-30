@@ -41,7 +41,7 @@ it('should not return collection of JSON documents when there is no authorizatio
    supertest(app)
    .post('/api/workouts')
    .set('Authorization', 'BEARER eyJhbGciOiJIUzI1NiJ9.Y29ubm9y.0ZtAOqXptUFcMQOohJokS-x1GGw0pJRotjnOjKZFlug')
-   .send({ workoutName: 'Jims Back Workout', trainer: 'Jimmy Cricket', exercise1: 'Wide Grip Pull Ups', exercise2: 'Deadlifts', difficulty: 'Beginner', timeInMins: '60'})
+   .send({ workoutName: 'Jims Back Workout', trainer: 'Jimmy Cricket', exercise1: 'Wide Grip Pull Ups', exercise2: 'Deadlifts', difficulty: 'Beginner', timeInMins: 60})
    .expect('Content-type', /json/)
    .expect(201)
    .end(function(err, res) {
@@ -51,6 +51,7 @@ it('should not return collection of JSON documents when there is no authorizatio
      done();
    });
  });
+
 
   // #3 delete a workout
      it('should delete workout', function(done) {
