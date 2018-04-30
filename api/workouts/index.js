@@ -4,20 +4,11 @@ import multer from 'multer';
 import _ from 'lodash';
 const router = express.Router();
 var workoutEvent = require("../../events.js")
-var jwt = require('jsonwebtoken');
+import asyncHandler from 'express-async-handler';
+import UserModel from './../users/userModel';
+
 
 const upload = multer ({dest: './uploads'});   //where multer will store incoming files
-
-/**const upload = multer ({    //alternitive storage using limits, path not working
-storage: storage,
-limits: {
-fileSize: 1024 * 1024 * 5
-},
-fileFilter: fileFilter
-
-});
-**/
-
 const storage = multer.diskStorage({   //adjust how the files get stored
 destination: function(req, file, cb){    //callback will be exe whenever new file is received
 cb(null, './uploads');
@@ -39,7 +30,7 @@ const fileFilter = (req, file, cb) => {
 
 //get all workouts
 router.get('/', (req, res) => {
-  Workout.find((err, workouts) => {
+Workout.find((err, workouts) => {
     if (err) return handleError(res, err);
     console.info('Here are all the workouts that are currently listed on the forum')
     //return res.json(200, workouts);
@@ -47,21 +38,6 @@ router.get('/', (req, res) => {
   });
 });
 
-//get webtoken
-router.post('/login', (req, res) => {
-//admin user
-const user = {
-  id: 1,
-  username: 'connor',
-  email: 'connorflynn4@gmail.com'
-}
-
-  jwt.sign({user: user}, 'secretkey', (err, token) => {   //callback to send token
-    res.json({
-      token: token
-    })
-  });
-});
 
 
 //get an individual workout
@@ -76,17 +52,30 @@ router.get('/:id', (req, res) => {
 });
 
 
-//post a workout
-router.post('/', upload.single('trainerImage'), (req, res) => {      //single means that only one file will be passed.
+//post a workout with image
+router.post('/image', upload.single('trainerImage'), (req, res) => {      //single means that only one file will be passed.
 console.log(req.file);  //this will make a log appear in the console, showing all sorts of info about the file stored
   Workout.create(req.body, function(err, workout) {
     if (err) return handleError(res, err);
     workoutEvent.publish('create_workout_event', workout);
-    console.info('Thank you for posting this workout');
+    console.info('Thank you for uploading!');
     return res.status(201).send({workout});
   });
 });
 
+
+//Post a workout
+router.post('/', (req, res) => {
+     const newWorkout = req.body;
+    if (newWorkout) {
+           Workout.create(newWorkout, (err, workout) => {
+              if (err) return handleError(res, err);
+                 return res.status(201).json(workout);
+          });
+      } else {
+         return handleError(res, err);
+      }
+});
 
 // upvote a workout
 router.post('/:id/upvotes', (req, res) => {
@@ -103,76 +92,44 @@ router.post('/:id/upvotes', (req, res) => {
   } );
 });
 
-
-
-// Update a workout
-router.put('/:id', (req, res) => {
-if (req.body._id) delete req.body._id;
- Workout.findById(req.params.id, (err, workout) => {
-   if (err) return handleError(res, err);
-  if (!workout) return res.send(404);
-  const updated = _.merge(workout, req.body);
-  updated.save((err) => {
-    if (err) return handleError(res, err);
-    console.info('You have updated your workout');
-    //return res.json(200, workout);
-    return res.status(200).json(workout);
+//Update workout information
+router.put('/:id', asyncHandler(async (req, res) => {
+  if (req.body._id) delete req.body._id;
+  const workout = await Workout.update({
+    _id: req.params.id,
+  }, req.body, {
+    upsert: false,
   });
+  if (!workout) return res.sendStatus(404);
+  console.info('Thank you for updating');
+  return res.json(200, workout);
+}));
+
+//delete a workout
+router.delete('/:id', (req, res) => {
+  Workout.findById(req.params.id, (err, workout) => {
+    if (err) return handleError(res, err);
+    if (!workout) return res.send(404);
+    workout.remove(function(err) {
+      if (err) return handleError(res, err);
+      console.info('Workout has been deleted');
+      return res.status(204).json({message: "Workout has been deleted"});
+    });
   });
 });
 
 
-//Authorized delete workout using webtoken
- router.delete('/:id', verifyToken, (req, res) => {
- jwt.verify(req.token, 'secretkey', (err, authData) => {
-     if(err) {
-       res.sendStatus(403);
-     } else {
-       Workout.findById(req.params.id, (err, workout) => {
-          if (err) return handleError(res, err);
-           if (!workout) return res.send(404);
-           workout.remove(function(err) {
-             if (err) return handleError(res, err);
-             console.info('workout has been deleted');
-             return res.send(204);
-           });
-          });
-     }
-   });
- });
-
-
-
-//post a comment on a workout
-router.post('/:id/comments', (req, res) => {
+// add a comment to a specific workout
+router.post('/:id/comments', asyncHandler( async (req, res) => {
    const id = req.params.id;
    const comment = req.body;
-   Workout.findById(id, (err, workout)=>{
-     if (err) return handleError(res, err);
-        workout.comments.push(comment);
-        workout.save((err) => {
-          if (err) return handleError(res, err);
-          console.info('you have added a comment to this workout')
-           return res.status(201).send({workout});
-        });
-  });
-});
+   const workout = await Workout.findById(id);
+   workout.comments.push(comment);
+   await workout.save();
+  console.info('Your comment has been posted');
+   return res.status(201).send({workout});
+}));
 
-//format of token is Authorization: Bearer <access_token>
-//.split will turn this into an array, with <access_token> being 0 index of the array
-//Verify token function
-function verifyToken(req, res, next) {
-  // Get auth header value
-  const bearerHeader = req.headers['authorization'];
-  if(typeof bearerHeader !== 'undefined') {
-    const bearer = bearerHeader.split(' ');
-    const bearerToken = bearer[1];
-    req.token = bearerToken;
-    next();
-  } else {
-    res.sendStatus(403);
-  }
-};
 
 /**
  * Handle general errors.

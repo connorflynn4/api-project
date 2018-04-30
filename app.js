@@ -5,6 +5,9 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import {loadWorkouts} from './workoutsData';
 import {Mockgoose} from 'mockgoose';
+import {loadUsers} from './userData';
+import usersRouter from './api/users';
+import passport from './auth';
 
 
 dotenv.config();
@@ -35,12 +38,10 @@ mongoose.connection.on('error', (err) => {
 // Populate DB with sample workout data
 if (process.env.seedDb) {
   loadWorkouts();
+  loadUsers();
 }
 
 
-if(dotenv.seedDb) {
-    loadWorkouts();
-}
 
 
 
@@ -48,9 +49,10 @@ if(dotenv.seedDb) {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
-app.use('/api/workouts', workoutsRouter);
+app.use('/api/workouts', passport.authenticate('jwt', {session: false}), workoutsRouter);
 app.use(express.static('public'));
 app.use('/uploads', express.static('uploads'));
+app.use('/api/users', usersRouter);
 
 // add middleware to handle any errors.
 app.use((err, req, res, next) => {
