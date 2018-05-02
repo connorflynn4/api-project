@@ -54,6 +54,9 @@ app.use((err, req, res, next) => {
   res.status(500).send(`Something broke! ${err.message}`);
 });
 
+app.get('/',(req,res => {
+  res.redirect('/api/workouts')
+}));
 
 
 // Populate DB with sample workout data
