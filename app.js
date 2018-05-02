@@ -49,10 +49,11 @@ app.use('/api/workouts', passport.authenticate('jwt', {session: false}), workout
 
 
 // add middleware to handle any errors.
-app.use((err, req, res, next) => {
+/**app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send(`Something broke! ${err.message}`);
 });
+**/
 
 app.get('/',(req,res)=> {
   res.redirect('/api/workouts')
