@@ -18,7 +18,7 @@ const port = process.env.PORT;
 
 //configure body-parser
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({estended:true}));
 app.use(express.static('public'));
 app.use('/uploads', express.static('uploads'));
 app.use('/api/users', usersRouter);
