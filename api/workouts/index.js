@@ -70,6 +70,7 @@ router.post('/', (req, res) => {
     if (newWorkout) {
            Workout.create(newWorkout, (err, workout) => {
               if (err) return handleError(res, err);
+              workoutEvent.publish('create_workout_event', workout);
                  return res.status(201).json(workout);
           });
       } else {
