@@ -56,7 +56,7 @@ app.use('/api/workouts', passport.authenticate('jwt', {session: false}), workout
 **/
 
 app.get('/',(req,res)=> {
-  res.redirect('/api/users')
+  res.redirect('/api/workouts')
 });
 
 
