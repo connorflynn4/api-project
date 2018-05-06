@@ -33,19 +33,15 @@ router.get('/', (req, res) => {
 Workout.find((err, workouts) => {
     if (err) return handleError(res, err);
     console.info('Here are all the workouts that are currently listed on the forum')
-    //return res.json(200, workouts);
     return res.status(200).json(workouts);
   });
 });
-
-
 
 //get an individual workout
 router.get('/:id', (req, res) => {
     const id = req.params.id;
     Workout.findById(id, (err, workout) => {
         if (err) return handleError(res, err);
-
         console.info('Here is the specific workout you asked for' );
         return res.status(200).json(workout);
   } );
@@ -71,27 +67,13 @@ router.post('/', (req, res) => {
            Workout.create(newWorkout, (err, workout) => {
               if (err) return handleError(res, err);
               workoutEvent.publish('create_workout_event', workout);
-                 return res.status(201).json(workout);
+              return res.status(201).json(workout);
           });
       } else {
          return handleError(res, err);
       }
 });
 
-// upvote a workout
-router.post('/:id/upvotes', (req, res) => {
-  const id = req.params.id;
-  Workout.findById(id, (err, workout) => {
-        if (err) return handleError(res, err);
-  workout.upvotes++;
-  workout.save((err) =>
-  {
-          if (err) return handleError(res, err);
-          console.info('There is now ${upvotes.length} on this workout');
-           return res.status(201).send({workout});
-  });
-  } );
-});
 
 //Update workout information
 router.put('/:id', asyncHandler(async (req, res) => {
@@ -112,9 +94,9 @@ router.delete('/:id', (req, res) => {
     if (err) return handleError(res, err);
     if (!workout) return res.send(404);
     workout.remove(function(err) {
-      if (err) return handleError(res, err);
-      console.info('Workout has been deleted');
-      return res.status(204).json({message: "Workout has been deleted"});
+    if (err) return handleError(res, err);
+    console.info('Workout has been deleted');
+    return res.status(204).json({message: "Workout has been deleted"});
     });
   });
 });
@@ -127,17 +109,11 @@ router.post('/:id/comments', asyncHandler( async (req, res) => {
    const workout = await Workout.findById(id);
    workout.comments.push(comment);
    await workout.save();
-  console.info('Your comment has been posted');
+   console.info('Workout has been deleted');
    return res.status(201).send({workout});
 }));
 
 
-/**
- * Handle general errors.
- * @param {object} res The response object
- * @param {object} err The error object.
- * @return {object} The response object
- */
 function handleError(res, err) {
   return res.send(500, err);
 };

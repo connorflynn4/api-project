@@ -17,23 +17,8 @@ it('should return collection of JSON documents', function(done) {
       done();
 });
 });
-
-
-//JSON collection without auth
-describe('Workouts API unit test', function() {
-this.timeout(120000);
-it('should not return collection of JSON documents when there is no authorization', function(done) {
-  supertest(app)
-  .get('/api/workouts')
-  //.set('Authorization', 'BEARER eyJhbGciOiJIUzI1NiJ9.Y29ubm9y.0ZtAOqXptUFcMQOohJokS-x1GGw0pJRotjnOjKZFlug')
-  .expect('Content-type', /json/)
-  .expect(401)
-  .end(function(err, res) {
-      res.status.should.equal(401);
-      done();
-  });
 });
-});
+
 
 // add a workout
  it('should add a workout', function(done) {
@@ -60,12 +45,15 @@ it('should not return collection of JSON documents when there is no authorizatio
        .get('/api/workouts')
        .set('Authorization', 'BEARER eyJhbGciOiJIUzI1NiJ9.Y29ubm9y.0ZtAOqXptUFcMQOohJokS-x1GGw0pJRotjnOjKZFlug')
        .expect('Content-type', /json/)
+       .expect(200) 
+       .expect('Content-type', /json/)
        .expect(200) // This is HTTP response
        .end(function(err, res) {
            const id = res.body[0]._id;
            superserver
                .delete('/api/workouts/'+id)
                .expect('Content-type', /json/)
+               .expect(200)
                .expect(200) // This is HTTP response
                .end(function(err, res) {
                  res.status.should.equal(204);
@@ -84,23 +72,23 @@ it('should update a workout', function(done) {
     const superserver = supertest(app);
     superserver
     .get('/api/workouts')
-    //.set('Authorization', 'BEARER eyJhbGciOiJIUzI1NiJ9.U2Vhbg.kcSaZwPVIm7cKjHOzkuSmyVLxVOhQudbjWpoZR0MFi4')
+    .set('Authorization', 'BEARER eyJhbGciOiJIUzI1NiJ9.Y29ubm9y.0ZtAOqXptUFcMQOohJokS-x1GGw0pJRotjnOjKZFlug')
+    .expect('Content-type', /json/)
+    .expect(200)
     .expect('Content-type', /json/)
     .expect(200)
     .end(function(err, res) {
-        const id = res.body[1]._id;
+        const id = res.body[0]._id;
         superserver
   .put('/api/workouts/'+id)
   .send({difficulty:'Intermediate'})
   .expect('Content-type', /json/)
-      .expect(200)
+      .expect(201)
       .end(function(err, res) {
-       res.status.should.equal(200);
+       res.status.should.equal(201);
        res.body.difficulty.should.equal('Intermediate');
        done();
      });
             }
           );
-     });
-
      });
