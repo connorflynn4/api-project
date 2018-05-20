@@ -5,9 +5,9 @@
     "passes": 5,
     "pending": 0,
     "failures": 2,
-    "start": "2018-05-02T18:09:47.613Z",
-    "end": "2018-05-02T18:10:00.208Z",
-    "duration": 12595,
+    "start": "2018-05-20T11:38:32.797Z",
+    "end": "2018-05-20T11:38:43.109Z",
+    "duration": 10312,
     "testsRegistered": 7,
     "passPercent": 71.4,
     "pendingPercent": 0,
@@ -19,7 +19,7 @@
     "pendingPercentClass": "danger"
   },
   "suites": {
-    "uuid": "4e5079be-ad84-4cce-bdef-1ee68bdcfa7b",
+    "uuid": "e81a1953-563b-49a1-bf84-3e6eb42856d8",
     "title": "",
     "fullFile": "",
     "file": "",
@@ -30,7 +30,7 @@
         "title": "should add a workout",
         "fullTitle": "should add a workout",
         "timedOut": false,
-        "duration": 10856,
+        "duration": 9228,
         "state": "passed",
         "speed": "slow",
         "pass": true,
@@ -39,7 +39,7 @@
         "code": "this.timeout(1200000);\n(0, _supertest2.default)(_app.app).post('/api/workouts').set('Authorization', 'BEARER eyJhbGciOiJIUzI1NiJ9.Y29ubm9y.0ZtAOqXptUFcMQOohJokS-x1GGw0pJRotjnOjKZFlug').send({ workoutName: 'Jims Back Workout', trainer: 'Jimmy Cricket', exercise1: 'Wide Grip Pull Ups', exercise2: 'Deadlifts', difficulty: 'Beginner', timeInMins: 60 }).expect('Content-type', /json/).expect(201).end(function (err, res) {\n  res.status.should.equal(201);\n  res.body.should.have.property('_id');\n  res.body.workoutName.should.equal('Jims Back Workout');\n  done();\n});",
         "err": {},
         "isRoot": true,
-        "uuid": "65284b2e-d2eb-48b7-a715-bba8cae4d7d5",
+        "uuid": "a7433def-5b0a-4020-ac5c-b4df2da28977",
         "isHook": false,
         "skipped": false
       },
@@ -59,7 +59,7 @@
           "diff": "- 401\n+ 204\n"
         },
         "isRoot": true,
-        "uuid": "ceb9512f-2cbc-4bab-ba4e-ce162e5fe286",
+        "uuid": "b3d29532-9c1d-4c61-a45d-6b187fce7fe5",
         "isHook": false,
         "skipped": false
       },
@@ -79,14 +79,14 @@
           "diff": "- 401\n+ 201\n"
         },
         "isRoot": true,
-        "uuid": "2130c537-2896-410f-a4c0-6f0601ca1498",
+        "uuid": "bb78f699-c5b4-4a9e-9117-9f5cf01187c6",
         "isHook": false,
         "skipped": false
       }
     ],
     "suites": [
       {
-        "uuid": "ec071859-4018-49ca-94a0-e7c2d44ba1c9",
+        "uuid": "70d1a2b3-d780-459d-a0cb-c0f7f975fd74",
         "title": "Users API unit test",
         "fullFile": "C:\\Users\\conno\\Desktop\\api-project\\test\\testUsers.js",
         "file": "\\test\\testUsers.js",
@@ -97,7 +97,7 @@
             "title": "should return collection of JSON documents",
             "fullTitle": "Users API unit test should return collection of JSON documents",
             "timedOut": false,
-            "duration": 15,
+            "duration": 8,
             "state": "passed",
             "speed": "fast",
             "pass": true,
@@ -106,7 +106,7 @@
             "code": "(0, _supertest2.default)(_app.app).get('/api/users').expect('Content-type', /json/).expect(200) // This is the HTTP response\n.end(function (err, res) {\n  res.status.should.equal(200);\n  done();\n});",
             "err": {},
             "isRoot": false,
-            "uuid": "91479603-0ca2-4011-a4f5-030dae99ccb0",
+            "uuid": "1ad8c5ca-bd02-482f-8ced-d9e66ab5a4a5",
             "isHook": false,
             "skipped": false
           },
@@ -114,7 +114,7 @@
             "title": "should register a user",
             "fullTitle": "Users API unit test should register a user",
             "timedOut": false,
-            "duration": 742,
+            "duration": 522,
             "state": "passed",
             "speed": "slow",
             "pass": true,
@@ -123,7 +123,7 @@
             "code": "(0, _supertest2.default)(_app.app).post('/api/users').query({ action: 'register' }).send({ username: 'jimmy', password: 'football' }).expect('Content-type', /json/).expect(201).end(function (err, res) {\n  res.status.should.equal(201);\n  res.body.success.should.equal(true);\n  done();\n});",
             "err": {},
             "isRoot": false,
-            "uuid": "da0f65e2-ca48-4788-8c32-bfd3bfd117e3",
+            "uuid": "94fbedfa-b629-4bfc-9bca-50fb3143e02e",
             "isHook": false,
             "skipped": false
           },
@@ -131,7 +131,7 @@
             "title": "should authenticate a user",
             "fullTitle": "Users API unit test should authenticate a user",
             "timedOut": false,
-            "duration": 488,
+            "duration": 313,
             "state": "passed",
             "speed": "slow",
             "pass": true,
@@ -140,27 +140,27 @@
             "code": "(0, _supertest2.default)(_app.app).post('/api/users').send({ username: 'connor', password: 'cat' }).expect('Content-type', /json/).expect(201).end(function (err, res) {\n  res.status.should.equal(200);\n  res.body.token.substring(0, 3).should.equal('JWT');\n  done();\n});",
             "err": {},
             "isRoot": false,
-            "uuid": "0502faa9-5e94-41e8-b68a-00089a0a48b4",
+            "uuid": "56a181ff-3122-4aed-9b07-c5154416d0ac",
             "isHook": false,
             "skipped": false
           }
         ],
         "suites": [],
         "passes": [
-          "91479603-0ca2-4011-a4f5-030dae99ccb0",
-          "da0f65e2-ca48-4788-8c32-bfd3bfd117e3",
-          "0502faa9-5e94-41e8-b68a-00089a0a48b4"
+          "1ad8c5ca-bd02-482f-8ced-d9e66ab5a4a5",
+          "94fbedfa-b629-4bfc-9bca-50fb3143e02e",
+          "56a181ff-3122-4aed-9b07-c5154416d0ac"
         ],
         "failures": [],
         "pending": [],
         "skipped": [],
-        "duration": 1245,
+        "duration": 843,
         "root": false,
         "rootEmpty": false,
         "_timeout": 120000
       },
       {
-        "uuid": "880ba8cc-b13f-40b8-ba33-6f64949dffe2",
+        "uuid": "fc12f360-55eb-4f23-ba63-3e5bbca70ab2",
         "title": "Workouts API unit test",
         "fullFile": "C:\\Users\\conno\\Desktop\\api-project\\test\\testWorkout.js",
         "file": "\\test\\testWorkout.js",
@@ -171,7 +171,7 @@
             "title": "should return collection of JSON documents",
             "fullTitle": "Workouts API unit test should return collection of JSON documents",
             "timedOut": false,
-            "duration": 22,
+            "duration": 13,
             "state": "passed",
             "speed": "fast",
             "pass": true,
@@ -180,30 +180,30 @@
             "code": "(0, _supertest2.default)(_app.app).get('/api/workouts').set('Authorization', 'BEARER eyJhbGciOiJIUzI1NiJ9.Y29ubm9y.0ZtAOqXptUFcMQOohJokS-x1GGw0pJRotjnOjKZFlug').expect('Content-type', /json/).expect(200).end(function (err, res) {\n  res.status.should.equal(200);\n  done();\n});",
             "err": {},
             "isRoot": false,
-            "uuid": "381729e6-e0e5-49aa-aa7f-64024214df72",
+            "uuid": "003bd960-ae2e-4fb1-ae58-1a2f3d91dcfd",
             "isHook": false,
             "skipped": false
           }
         ],
         "suites": [],
         "passes": [
-          "381729e6-e0e5-49aa-aa7f-64024214df72"
+          "003bd960-ae2e-4fb1-ae58-1a2f3d91dcfd"
         ],
         "failures": [],
         "pending": [],
         "skipped": [],
-        "duration": 22,
+        "duration": 13,
         "root": false,
         "rootEmpty": false,
         "_timeout": 120000
       }
     ],
     "passes": [
-      "65284b2e-d2eb-48b7-a715-bba8cae4d7d5"
+      "a7433def-5b0a-4020-ac5c-b4df2da28977"
     ],
     "failures": [
-      "ceb9512f-2cbc-4bab-ba4e-ce162e5fe286",
-      "2130c537-2896-410f-a4c0-6f0601ca1498"
+      "b3d29532-9c1d-4c61-a45d-6b187fce7fe5",
+      "bb78f699-c5b4-4a9e-9117-9f5cf01187c6"
     ],
     "pending": [],
     "skipped": [],

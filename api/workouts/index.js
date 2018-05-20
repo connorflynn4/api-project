@@ -6,6 +6,7 @@ const router = express.Router();
 var workoutEvent = require("../../events.js")
 import asyncHandler from 'express-async-handler';
 import UserModel from './../users/userModel';
+//import j2xml from 'json2xml'
 
 
 const upload = multer ({dest: './uploads'});   //where multer will store incoming files
@@ -43,19 +44,26 @@ router.get('/:id', (req, res) => {
     Workout.findById(id, (err, workout) => {
         if (err) return handleError(res, err);
         console.info('Here is the specific workout you asked for' );
-        return res.status(200).json(workout);
-  } );
-});
+        if (err) return handleError(res, err);
+        //return res.status(200).json(workouts);
+       res.format({
+            'application/xml': function(){
+              var Workout = workout.toObject();
+              return res.status(201).send(j2x({workouts: Workout}));}
+            ,'default': function(){return res.status(201).json(workoust);}
+          });
+            } );
+          });
 
 
 //post a workout with image
 router.post('/image', upload.single('trainerImage'), (req, res) => {      //single means that only one file will be passed.
 console.log(req.file);  //this will make a log appear in the console, showing all sorts of info about the file stored
-  Workout.create(req.body, function(err, workout) {
+  Workout.create(req.body, function(err, workouts) {
     if (err) return handleError(res, err);
-    workoutEvent.publish('create_workout_event', workout);
+    workoutEvent.publish('create_workout_event', workouts);
     console.info('Thank you for uploading!');
-    return res.status(201).send({workout});
+    return res.status(201).send({workouts});
   });
 });
 
@@ -78,22 +86,22 @@ router.post('/', (req, res) => {
 //Update workout information
 router.put('/:id', asyncHandler(async (req, res) => {
   if (req.body._id) delete req.body._id;
-  const workout = await Workout.update({
+  const workouts = await Workout.update({
     _id: req.params.id,
   }, req.body, {
     upsert: false,
   });
-  if (!workout) return res.sendStatus(404);
+  if (!workouts) return res.sendStatus(404);
   console.info('Thank you for updating');
-  return res.json(200, workout);
+  return res.json(200, workouts);
 }));
 
 //delete a workout
 router.delete('/:id', (req, res) => {
-  Workout.findById(req.params.id, (err, workout) => {
+  Workout.findById(req.params.id, (err, workouts) => {
     if (err) return handleError(res, err);
-    if (!workout) return res.send(404);
-    workout.remove(function(err) {
+    if (!workouts) return res.send(404);
+    workouts.remove(function(err) {
     if (err) return handleError(res, err);
     console.info('Workout has been deleted');
     return res.status(204).json({message: "Workout has been deleted"});
@@ -106,11 +114,11 @@ router.delete('/:id', (req, res) => {
 router.post('/:id/comments', asyncHandler( async (req, res) => {
    const id = req.params.id;
    const comment = req.body;
-   const workout = await Workout.findById(id);
-   workout.comments.push(comment);
-   await workout.save();
+   const workouts = await Workout.findById(id);
+   workouts.comments.push(comment);
+   await workouts.save();
    console.info('Workout has been deleted');
-   return res.status(201).send({workout});
+   return res.status(201).send({workouts});
 }));
 
 

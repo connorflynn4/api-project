@@ -2,28 +2,49 @@ API project
 Workout Forum
 
 A place where people with an interest in the fitness industry can share details about their favourite workouts
-amongst other users of the forum. 
+amongst other users of the forum.
 
 Hosted using mongoose on mLab.
 
 Ability to add a new workout to the forum (each entry has been validated).
 
+Ability to add a new workout to the forum and include an workout image also,
+image will be sent to the "uploads" folder.
+
 Ability to get all of the workouts currently on the forum.
 
-Ability to get a specific workout using the ID that was auto generated in mLab.
+Ability to get a specific workout using the ID that was auto generated in mLab,
+can be brought back in either XML or JSON.
 
 Ability to delete a specific workout on the forum.
-(jsonwebtokens were used as a security mechanism, as only one verified user can delete a post once it has been posted)
 
-Ability to upload a profile image through postman, this will serve as either a picture of the trainer
-that created the workout, or a person's own image for their general profile on the forum. Whenever an
-image is posted, it will be stored in the "uploads folder".
+Use of Messaging - When adding a workout, a message is posted to PubNub.
 
-Up vote a specific workout: currently not working.
-Add a comment to a specific workout: currently not working.
+
+Add a comment to a specific workout
+
+7 Tests:
+
+Users
+should return collection of JSON documents.
+should register a user.
+should authenticate a user.
+
+Workouts
+should return collection of JSON documents
+should add a workout
+should delete workout
+should update a workout
+
+mochawesome report generated for each test.
+
+
+Deployed to Heroku:
+https://connorflynnapi-20058810.herokuapp.com/
 
 Security:
-jsonwebtoken (currently only on the delete method, but will be used as needed within other methods)
+2 users are added to the forum, upon registering they are given a JSON web token.
+This token can then be used to add, delete, update or view workout information.
 
 NPM DEPENDENCIES:
 "body-parser": "^1.18.2",
