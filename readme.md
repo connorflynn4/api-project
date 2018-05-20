@@ -39,6 +39,8 @@ should update a workout
 mochawesome report generated for each test.
 
 
+Custom validation on the "difficulty" field. 
+
 Deployed to Heroku:
 https://connorflynnapi-20058810.herokuapp.com/
 
