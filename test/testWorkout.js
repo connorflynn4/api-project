@@ -1,6 +1,7 @@
 import supertest from 'supertest';
 import {app} from './../app.js';
 import should from 'should';
+import {loadWorkouts} from './../workoutsData';
 
 //Workout Unit Test
 //JSON colection with auth
@@ -37,7 +38,7 @@ it('should return collection of JSON documents', function(done) {
    });
  });
 
-
+/**
   // #3 delete a workout
      it('should delete workout', function(done) {
        const superserver = supertest(app);
@@ -45,7 +46,7 @@ it('should return collection of JSON documents', function(done) {
        .get('/api/workouts')
        .set('Authorization', 'BEARER eyJhbGciOiJIUzI1NiJ9.Y29ubm9y.0ZtAOqXptUFcMQOohJokS-x1GGw0pJRotjnOjKZFlug')
        .expect('Content-type', /json/)
-       .expect(200) 
+       .expect(200)
        .expect('Content-type', /json/)
        .expect(200) // This is HTTP response
        .end(function(err, res) {
@@ -92,3 +93,5 @@ it('should update a workout', function(done) {
             }
           );
      });
+
+     **/

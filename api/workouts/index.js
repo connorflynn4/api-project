@@ -6,7 +6,7 @@ const router = express.Router();
 var workoutEvent = require("../../events.js")
 import asyncHandler from 'express-async-handler';
 import UserModel from './../users/userModel';
-//import j2xml from 'json2xml'
+import j2xml from 'json2xml'
 
 
 const upload = multer ({dest: './uploads'});   //where multer will store incoming files
@@ -38,22 +38,35 @@ Workout.find((err, workouts) => {
   });
 });
 
+
+/**
+// get post in XML or JSON
+router.get('/:id', (req, res) => {
+    const id = req.params.id;
+    Workout.findById(id, (err, workouts) => {
+        if (err) return handleError(res, err);
+        return res.send({workouts});
+  } );
+});
+**/
+
+
 //get an individual workout
 router.get('/:id', (req, res) => {
     const id = req.params.id;
-    Workout.findById(id, (err, workout) => {
-        if (err) return handleError(res, err);
-        console.info('Here is the specific workout you asked for' );
+    Workout.findById(id, (err, workouts) => {
         if (err) return handleError(res, err);
         //return res.status(200).json(workouts);
        res.format({
             'application/xml': function(){
-              var Workout = workout.toObject();
-              return res.status(201).send(j2x({workouts: Workout}));}
-            ,'default': function(){return res.status(201).json(workoust);}
+              var workoutList = workouts.toObject();
+              return res.status(201).send(j2x({workouts: workoutList}));}
+            ,'default': function(){return res.status(201).json(workouts);}
           });
             } );
           });
+
+
 
 
 //post a workout with image
@@ -72,10 +85,10 @@ console.log(req.file);  //this will make a log appear in the console, showing al
 router.post('/', (req, res) => {
      const newWorkout = req.body;
     if (newWorkout) {
-           Workout.create(newWorkout, (err, workout) => {
+           Workout.create(newWorkout, (err, workouts) => {
               if (err) return handleError(res, err);
-              workoutEvent.publish('create_workout_event', workout);
-              return res.status(201).json(workout);
+              workoutEvent.publish('create_workout_event', workouts);
+              return res.status(201).json(workouts);
           });
       } else {
          return handleError(res, err);

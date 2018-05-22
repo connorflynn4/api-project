@@ -18,46 +18,69 @@ can be brought back in either XML or JSON.
 
 Ability to delete a specific workout on the forum.
 
-Use of Messaging - When adding a workout, a message is posted to PubNub.
+Use of Messaging - When adding a workout, a message is posted to Pub Nub.
 
+Add a comment to a specific workout.
 
-Add a comment to a specific workout
-
-7 Tests:
+5 Tests:
 
 Users
-should return collection of JSON documents.
-should register a user.
-should authenticate a user.
+should return collection of JSON documents (working)
+should register a user (working)
+should authenticate a user (working)
 
 Workouts
-should return collection of JSON documents
-should add a workout
+should return collection of JSON documents (working)
+should add a workout (working)
+
+
+/////////Still in Progress - Commented Out///////////
 should delete workout
 should update a workout
+/////////////////////////////////////////////////////
 
 mochawesome report generated for each test.
 
 
-Custom validation on the "difficulty" field. 
+Custom validation on the "difficulty" field - must either equal to "Beginner, Intermediate or Advanced"
 
 Deployed to Heroku:
 https://connorflynnapi-20058810.herokuapp.com/
 
-Security:
+Security/Authentication:
 2 users are added to the forum, upon registering they are given a JSON web token.
 This token can then be used to add, delete, update or view workout information.
 
 NPM DEPENDENCIES:
+"babel-cli": "^6.26.0",
+"babel-core": "^6.26.0",
+"babel-eslint": "^8.2.1",
+"babel-polyfill": "^6.26.0",
+"babel-preset-env": "^1.6.1",
+"bcrypt-nodejs": "0.0.3",
 "body-parser": "^1.18.2",
+"cross-env": "^5.1.4",
 "dotenv": "^5.0.0",
+"eslint": "^4.17.0",
+"eslint-config-google": "^0.9.1",
 "express": "^4.16.2",
-"jsonwebtoken": "^8.2.0",
+"express-async-handler": "^1.1.3",
+"json2xml": "^0.1.3",
+"jsonwebtoken": "^8.2.1",
 "lodash": "^4.17.5",
+"mocha": "^5.1.1",
+"mochawesome": "^3.0.2",
+"mockgoose": "^7.3.5",
 "mongoose": "^5.0.8",
 "multer": "^1.3.0",
-"npm": "^5.7.1"
-
+"nodemon": "^1.14.12",
+"npm": "^5.7.1",
+"passport": "^0.4.0",
+"passport-jwt": "^4.0.0",
+"pubnub": "^4.20.2",
+"save-dev": "^2.0.0",
+"should": "^13.2.1",
+"supertest": "^3.0.0"
 
 References:
 https://github.com/fxwalsh/node-samples-2018/tree/master/labs
