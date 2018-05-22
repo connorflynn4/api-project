@@ -40,7 +40,7 @@ Workout.find((err, workouts) => {
 
 
 /**
-// get post in XML or JSON
+// get post
 router.get('/:id', (req, res) => {
     const id = req.params.id;
     Workout.findById(id, (err, workouts) => {
